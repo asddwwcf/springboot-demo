@@ -1,0 +1,37 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: my_demo
+  redis:
+    host: localhost
+    port: 6379
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/my_demo?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 123456
+  http:
+    servlet:
+      enabled: true
+      file-size-threshold: 0
+      location: /data/res
+      max-file-size: 20MB
+      max-request-size: 20MB
+  jpa:
+    database: MYSQL
+    show-sql: true
+  session:
+    timeout: 3600
+  mail:
+    password: xxxxxx
+    host: smtp.163.com
+    username: xxxxxx
+    from: xxxxxx@163.com
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
