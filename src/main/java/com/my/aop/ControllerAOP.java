@@ -22,7 +22,7 @@ public class ControllerAOP {
 
 	@Pointcut("execution(public com.my.model.ResultBean *(..))")
     public void controllerMethod(){}
-	
+
 	@Around("controllerMethod()")
 	public Object handlerControllerMethod(ProceedingJoinPoint pjp) {
 		long startTime = System.currentTimeMillis();

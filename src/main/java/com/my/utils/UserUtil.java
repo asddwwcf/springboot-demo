@@ -2,6 +2,7 @@ package com.my.utils;
 
 import com.my.exception.UnloginException;
 import com.my.model.User;
+import org.slf4j.MDC;
 
 import java.util.Locale;
 
@@ -27,7 +28,7 @@ public class UserUtil {
 		tlUser.set(user);
 
 		// 把用户信息放到log4j
-//		MDC.put(KEY_USER, user.getName());
+		MDC.put(KEY_USER, user.getName());
 	}
 
 	/**
@@ -74,7 +75,7 @@ public class UserUtil {
 		tlUser.remove();
 		tlLocale.remove();
 
-//		MDC.remove(KEY_USER);
+		MDC.remove(KEY_USER);
 	}
 
 }
