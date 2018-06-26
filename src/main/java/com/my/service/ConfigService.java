@@ -3,7 +3,6 @@ package com.my.service;
 
 import java.util.Collection;
 import java.util.List;
-
 import com.my.model.PageResp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,15 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-
 import com.google.common.collect.Lists;
-
 import com.my.model.Config;
 import com.my.dao.ConfigDao;
-
-import static com.my.utils.CheckUtil.check;
-import static com.my.utils.CheckUtil.notEmpty;
-import static com.my.utils.CheckUtil.notNull;
 
 /**
  * 配置业务处理类
@@ -44,17 +37,10 @@ public class ConfigService {
 	}
 
 	public long add(Config config) {
-		// 参数校验
-		notNull(config, "param.is.null");
-		notEmpty(config.getName(), "name.is.null");
-		notEmpty(config.getValue(), "value.is.null");
 
 		// 校验通过后打印重要的日志
 		logger.info("add config:" + config);
-
 		// 校验重复
-		check(null == dao.findByName(config.getName()), "name.repeat");
-
 		config = dao.save(config);
 
 		// 修改操作需要打印操作结果
@@ -64,11 +50,6 @@ public class ConfigService {
 	}
 
 	public boolean delete(long id) {
-		// 参数校验
-		check(id > 0L, "id.error", id);
-
-//		dao.delete(id);
-
 		// 修改操作需要打印操作结果
 		logger.info("delete config success, id:" + id);
 

@@ -46,8 +46,8 @@ public class CreateTestData implements CommandLineRunner {
 
     User user = new User();
 
-    user.setName("xwjie");
-    user.setNick("晓风轻");
+    user.setName("admin");
+    user.setNick("管理员");
     user.setRole("admin");
 
     userDao.save(user);
@@ -77,7 +77,7 @@ public class CreateTestData implements CommandLineRunner {
         config.setName("测试数据：" + i + ":" + j);
         System.out.println("测试数据：" + i + ":" + j);
         config.setValue("https://github.com/xwjie");
-        config.setDescription("晓风轻：" + i + ":" + j);
+        config.setDescription("管理员：" + i + ":" + j);
 
         // 创建记录的用户
         config.setCreator(user);

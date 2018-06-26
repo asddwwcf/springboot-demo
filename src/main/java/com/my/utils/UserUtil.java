@@ -33,7 +33,7 @@ public class UserUtil {
 
 	/**
 	 * 如果没有登录，返回null
-	 * 
+	 *
 	 * @return
 	 */
 	public static User getUserIfLogin() {
@@ -42,7 +42,7 @@ public class UserUtil {
 
 	/**
 	 * 如果没有登录会抛出异常
-	 * 
+	 *
 	 * @return
 	 */
 	public static User getUser() {
