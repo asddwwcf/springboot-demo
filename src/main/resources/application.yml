@@ -14,3 +14,4 @@ spring:
   jpa:
     database: MYSQL
     show-sql: true
+security:basic:enabled: false
