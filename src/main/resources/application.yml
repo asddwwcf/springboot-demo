@@ -1,16 +1,41 @@
+#服务器端口
 server:
   port: 8080
+
 spring:
+#应用名称
   application:
     name: my_demo
+#Redis配置
   redis:
     host: localhost
     port: 6379
+#mysql配置
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/my_demo?useUnicode=true&characterEncoding=utf-8
     username: root
     password: 123456
+#jpa配置
   jpa:
     database: MYSQL
     show-sql: true
+    hibernate:
+      dialect: org.hibernate.dialect.MySQL5Dialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+#mybatis设置
+mybatis:
+  mapper-locations: classpath:dao/*.xml
+  type-aliases-package: com.my.demo.*
+logging:
+  level:
+    com:
+      my: debug
+#pagehelper配置
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
