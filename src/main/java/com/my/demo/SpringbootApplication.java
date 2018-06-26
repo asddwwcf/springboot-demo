@@ -13,15 +13,15 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ServletComponentScan
 @EnableAutoConfiguration
 //mybatis配置
-@MapperScan("com.my.demo.dao.**")
+@MapperScan("com.my.demo.dao")
 //jpa配置
-@ComponentScan(basePackages="com.my.demo")
-@EntityScan(basePackages="com.my.demo.model")
-@EnableJpaRepositories(basePackages="com.my.demo.dao")
-public class SpringbootCodeTemplateApplication {
+//@ComponentScan(basePackages="com.my.demo")
+//@EntityScan(basePackages="com.my.demo.model")
+//@EnableJpaRepositories(basePackages="com.my.demo.dao")
+public class SpringbootApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringbootCodeTemplateApplication.class, args);
+		SpringApplication.run(SpringbootApplication.class, args);
 	}
 
 }

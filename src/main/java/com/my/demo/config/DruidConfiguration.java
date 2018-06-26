@@ -18,7 +18,7 @@ import java.sql.SQLException;
  */
 @Configuration
 public class DruidConfiguration {
-    @Value("${spring.datasource.driverClassName}")
+    @Value("${spring.datasource.driver-class-name}")
     private String driver;
     @Value("${spring.datasource.url}")
     String url;
@@ -82,7 +82,6 @@ public class DruidConfiguration {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return druidDataSource;
     }
 

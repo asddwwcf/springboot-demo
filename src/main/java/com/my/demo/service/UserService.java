@@ -1,28 +1,80 @@
 package com.my.demo.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.my.demo.model.User;
-import com.my.demo.dao.UserDao;
+import com.alibaba.fastjson.JSONObject;
 
 /**
- * 用户相关处理类，目前是模拟数据
+ * @author: hxy
+ * @description: 用户/角色/权限
+ * @date: 2017/11/2 10:18
  */
-@Service
-public class UserService {
+public interface UserService {
+    /**
+     * 用户列表
+     *
+     * @param jsonObject
+     * @return
+     */
+    JSONObject listUser(JSONObject jsonObject);
 
-	@Autowired
-	UserDao userDao;
+    /**
+     * 查询所有的角色
+     * 在添加/修改用户的时候要使用此方法
+     *
+     * @return
+     */
+    JSONObject getAllRoles();
 
-	public User findUser(String username) {
-		return userDao.findByName(username);
-	}
+    /**
+     * 添加用户
+     *
+     * @param jsonObject
+     * @return
+     */
+    JSONObject addUser(JSONObject jsonObject);
 
-	public User login(String username,String password) {
-		User user = new User();
-		user.setName("111");
-		return user;
-	}
+    /**
+     * 修改用户
+     *
+     * @param jsonObject
+     * @return
+     */
+    JSONObject updateUser(JSONObject jsonObject);
 
+    /**
+     * 角色列表
+     *
+     * @return
+     */
+    JSONObject listRole();
+
+    /**
+     * 查询所有权限, 给角色分配权限时调用
+     *
+     * @return
+     */
+    JSONObject listAllPermission();
+
+    /**
+     * 添加角色
+     *
+     * @param jsonObject
+     * @return
+     */
+    JSONObject addRole(JSONObject jsonObject);
+
+    /**
+     * 修改角色
+     *
+     * @param jsonObject
+     * @return
+     */
+    JSONObject updateRole(JSONObject jsonObject);
+
+    /**
+     * 删除角色
+     *
+     * @param jsonObject
+     * @return
+     */
+    JSONObject deleteRole(JSONObject jsonObject);
 }

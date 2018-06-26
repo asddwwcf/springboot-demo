@@ -1,9 +1,9 @@
 package com.my.demo.aop;
 
 
+import com.my.demo.common.ResultBean;
 import com.my.demo.exception.CheckException;
 import com.my.demo.exception.UnloginException;
-import com.my.demo.model.ResultBean;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 public class ControllerAOP {
 	private static final Logger logger = LoggerFactory.getLogger(ControllerAOP.class);
 
-	@Pointcut("execution(public com.my.demo.model.ResultBean *(..))")
+	@Pointcut("execution(public com.my.demo.common.ResultBean *(..))")
     public void controllerMethod(){}
 
 	@Around("controllerMethod()")

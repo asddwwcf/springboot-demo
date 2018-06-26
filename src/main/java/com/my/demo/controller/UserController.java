@@ -1,39 +1,112 @@
 package com.my.demo.controller;
 
-import java.util.Arrays;
-import java.util.List;
+import com.alibaba.fastjson.JSONObject;
+import com.my.demo.service.UserService;
+import com.my.demo.utils.CommonUtil;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-import com.my.demo.model.ResultBean;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import javax.servlet.http.HttpServletRequest;
 
-import com.my.demo.model.User;
-
+/**
+ * @description: 用户/角色/权限相关controller
+ */
 @RestController
-@CrossOrigin
 @RequestMapping("/user")
 public class UserController {
+    @Autowired
+    private UserService userService;
 
-	/**
-	 * 测试数据
-	 */
-	@GetMapping("/search")
-	public ResultBean<List<User>> search(@RequestParam String keyword) {
-		System.out.println("UserController.search()" + keyword);
+    /**
+     * 查询用户列表
+     *
+     * @param request
+     * @return
+     */
+    @RequiresPermissions("user:list")
+    @GetMapping("/list")
+    public JSONObject listUser(HttpServletRequest request) {
+        return userService.listUser(CommonUtil.request2Json(request));
+    }
 
-		User user = new User();
+    @RequiresPermissions("user:add")
+    @PostMapping("/addUser")
+    public JSONObject addUser(@RequestBody JSONObject requestJson) {
+        CommonUtil.hasAllRequired(requestJson, "username, password, nickname,   roleId");
+        return userService.addUser(requestJson);
+    }
 
-		user.setId(1000L);
-		user.setName("admin");
-		user.setNick("管理员");
-		user.setRole("admin");
+    @RequiresPermissions("user:update")
+    @PostMapping("/updateUser")
+    public JSONObject updateUser(@RequestBody JSONObject requestJson) {
+        CommonUtil.hasAllRequired(requestJson, " nickname,   roleId, deleteStatus, userId");
+        return userService.updateUser(requestJson);
+    }
 
-		List<User> nodes = Arrays.asList(user);
+    @RequiresPermissions(value = {"user:add", "user:update"}, logical = Logical.OR)
+    @GetMapping("/getAllRoles")
+    public JSONObject getAllRoles() {
+        return userService.getAllRoles();
+    }
 
-		return new ResultBean<>(nodes);
-	}
+    /**
+     * 角色列表
+     *
+     * @return
+     */
+    @RequiresPermissions("role:list")
+    @GetMapping("/listRole")
+    public JSONObject listRole() {
+        return userService.listRole();
+    }
 
+    /**
+     * 查询所有权限, 给角色分配权限时调用
+     *
+     * @return
+     */
+    @RequiresPermissions("role:list")
+    @GetMapping("/listAllPermission")
+    public JSONObject listAllPermission() {
+        return userService.listAllPermission();
+    }
+
+    /**
+     * 新增角色
+     *
+     * @return
+     */
+    @RequiresPermissions("role:add")
+    @PostMapping("/addRole")
+    public JSONObject addRole(@RequestBody JSONObject requestJson) {
+        CommonUtil.hasAllRequired(requestJson, "roleName,permissions");
+        return userService.addRole(requestJson);
+    }
+
+    /**
+     * 修改角色
+     *
+     * @return
+     */
+    @RequiresPermissions("role:update")
+    @PostMapping("/updateRole")
+    public JSONObject updateRole(@RequestBody JSONObject requestJson) {
+        CommonUtil.hasAllRequired(requestJson, "roleId,roleName,permissions");
+        return userService.updateRole(requestJson);
+    }
+
+    /**
+     * 删除角色
+     *
+     * @param requestJson
+     * @return
+     */
+    @RequiresPermissions("role:delete")
+    @PostMapping("/deleteRole")
+    public JSONObject deleteRole(@RequestBody JSONObject requestJson) {
+        CommonUtil.hasAllRequired(requestJson, "roleId");
+        return userService.deleteRole(requestJson);
+    }
 }
